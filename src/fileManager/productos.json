@@ -1,0 +1,46 @@
+[
+	{
+		"id": 21,
+		"stock": 150,
+		"description": "Sandia",
+		"title": "perro",
+		"price": 123.45,
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+		"category": "sarasa",
+		"status": true,
+		"code": 155
+	},
+	{
+		"title": "AAAAAAAAAAAAAAAAA",
+		"description": "Pinaple",
+		"code": 222211222223445,
+		"price": 123.45,
+		"status": true,
+		"stock": 165,
+		"category": "sarasa",
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+		"id": 22
+	},
+	{
+		"title": "AAAAAAAAAAAAAAAAA",
+		"description": "Pinaple",
+		"code": 22222211222223444,
+		"price": 123.45,
+		"status": true,
+		"stock": 165,
+		"category": "sarasa",
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+		"id": 23
+	},
+	{
+		"title": "AAAAAAAAAAAAAAAAA",
+		"description": "Pinaple",
+		"code": 123,
+		"price": 123.45,
+		"status": true,
+		"stock": 165,
+		"category": "sarasa",
+		"thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+		"id": 24
+	}
+]
