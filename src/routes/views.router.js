@@ -8,7 +8,25 @@ const productManager = new ProductManager();
 const cartManager = new CartManager();
 
 const SORT_ORDER = { asc: 1, desc: -1 };
-router.get("/", async (req, res) => {
+
+//Vista Users
+
+const publicAccess = (req, res, next) => {
+  if (req.session.user) return res.redirect("/");
+  next();
+};
+const privateAccess = (req, res, next) => {
+  if (!req.session.user) return res.redirect("/user/login");
+  next();
+};
+router.get("/user/register", publicAccess, (req, res) => {
+  res.render("register");
+});
+router.get("/user/login", publicAccess, (req, res) => {
+  res.render("login");
+});
+
+router.get("/", privateAccess, async (req, res) => {
   try {
     const { page = 1, limit = 5, sort, query, cartId } = req.query; //toma valor por defectro de este query param en uno, si es que no tiene valor
     const { docs, hasPrevPage, hasNextPage, nextPage, prevPage, totalPages } =
@@ -37,9 +55,32 @@ router.get("/", async (req, res) => {
       prevLink,
       nextLink,
       cartId,
+      user: req.session.user,
     });
   } catch (error) {
     console.error(error);
   }
 });
+
+router.get("/user/reset", publicAccess, (req, res) => {
+  res.render("reset");
+});
+
+router.get("/products", privateAccess, (req, res) => {
+  res.render("products", { user: req.session.user });
+});
+
+router.get("/products/:pid", async (req, res) => {
+  const { pid } = req.params;
+  const productSelected = await productManager.getProductById(pid);
+
+  res.render("product", productSelected.toJSON());
+});
+router.get("/carts/:cid", async (req, res) => {
+  const { cid } = req.params;
+  const cartSelected = await cartManager.getCartById(cid);
+
+  res.render("cartSelected", cartSelected.toJSON());
+});
+
 export default router;

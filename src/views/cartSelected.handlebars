@@ -1,0 +1,22 @@
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <h1>PRODUCTOS DISPONIBLES: </h1>
+  <br />
+  <h1>Cart ID:
+    <span id="cartId">
+      {{_id}}
+    </span>
+  </h1>
+  {{#each products}}
+    <div class="card m-2" style="width: 18rem;">
+      {{!-- <img src="{{this.thumbnail}}" class="card-img-top" alt="..." /> --}}
+      <div class="card-body">
+        <a href="/products/{{this.product._id}}">
+          <p class="card-title">{{this.product.title}}</p></a>
+        <h4 class="card-title">Unidades: {{this.quantity}}</h4>
+        <p class="card-text">
+          {{this.product.description}}
+        </p>
+      </div>
+    </div>
+  {{/each}}
+</div>

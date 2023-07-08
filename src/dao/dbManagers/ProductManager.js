@@ -62,7 +62,9 @@ export default class ProductManager {
   };
   getProductById = async (id) => {
     const product = await productModel.findOne({ _id: id });
+
     if (product) return product;
+
     console.error("Not found.");
   };
   paginate = async (query, pagination) => {
