@@ -1,5 +1,13 @@
 const addToCartButtons = document.querySelectorAll(".add");
 const cartIdElm = document.getElementById("cartId");
+const LogOutBtn = document.getElementById("LogOutBtn");
+const CART_ID = "cartID";
+
+const localStorageCartID = localStorage.getItem(CART_ID);
+
+if (localStorageCartID) {
+  cartIdElm.textContent = localStorageCartID;
+}
 
 addToCartButtons.forEach((element) => {
   element.addEventListener("click", (evt) => {
@@ -16,6 +24,7 @@ addToCartButtons.forEach((element) => {
         resp.json().then((respDeserilize) => {
           const cartID = respDeserilize.payload._id;
           cartIdElm.textContent = cartID;
+          localStorage.setItem(CART_ID, cartID);
           addProductToCart(productId);
         });
       });
@@ -37,3 +46,7 @@ const addProductToCart = (productId) => {
     console.log(resp2);
   });
 };
+
+LogOutBtn.addEventListener("click", (evt) => {
+  localStorage.removeItem(CART_ID);
+});

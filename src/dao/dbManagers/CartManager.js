@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import cartModel from "../models/carts.model.js";
 
 export default class CartManager {
@@ -30,6 +29,7 @@ export default class CartManager {
       product: productId,
       quantity: quantity,
     };
+
     let cart = await cartModel.findOne({ _id: id });
     if (!cart) {
       console.log("No se encontro el carrito a actualizar.");

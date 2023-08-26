@@ -11,9 +11,7 @@ form.addEventListener("submit", (e) => {
 
   fetch("/user/login", {
     method: "POST",
-
     body: JSON.stringify(obj),
-
     headers: {
       "Content-Type": "application/json",
     },

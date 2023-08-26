@@ -26,12 +26,12 @@ router.post(
         .status(400)
         .send({ status: error, error: "Invalid credencials" });
     //aca es donde en base al req.user puedo hacer esta valicacion para permitirle el ingreso al usuario solicitante
-    console.log(req.user);
     req.session.user = {
       first_name: req.user.first_name,
       last_name: req.user.last_name,
       age: req.user.age,
       email: req.user.email,
+      role: req.user.role,
     };
     res.send({ status: "success", message: "Login success" });
   }

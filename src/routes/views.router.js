@@ -73,13 +73,12 @@ router.get("/products", privateAccess, (req, res) => {
 router.get("/products/:pid", async (req, res) => {
   const { pid } = req.params;
   const productSelected = await productManager.getProductById(pid);
-
   res.render("product", productSelected.toJSON());
 });
+
 router.get("/carts/:cid", async (req, res) => {
   const { cid } = req.params;
   const cartSelected = await cartManager.getCartById(cid);
-
   res.render("cartSelected", cartSelected.toJSON());
 });
 

@@ -17,10 +17,9 @@ const initializePassport = () => {
       },
       async (req, username, password, done) => {
         const { first_name, last_name, email, age } = req.body;
-        console.log(first_name);
+
         try {
           const user = await userModel.findOne({ email: username });
-          console.log(user);
           if (user) {
             return done(null, false);
           }
@@ -46,15 +45,30 @@ const initializePassport = () => {
         usernameField: "email", //define porque parametro quiero hacer el filtrado o la autorizacion
       },
       async (username, password, done) => {
-        console.log(username, password);
+        if (
+          username === "adminCoder@coder.com" &&
+          password === "adminCod3r123"
+        ) {
+          const user = {
+            _id: "CoderAdmin",
+            first_name: "CoderHouse",
+            age: 18,
+            email: "adminCoder@coder.com",
+            role: "admin",
+          };
+          return done(null, user);
+        }
         try {
           const user = await userModel.findOne({ email: username });
-          console.log(user);
           if (!user) {
             return done(null, false);
           }
-          if (!isValidPassword(user, password)) return done(null, false);
-          return done(null, user);
+          if (!isValidPassword(user, password)) {
+            return done(null, false);
+          } else {
+            user.role = "user";
+            return done(null, user);
+          }
           //req.user este si todo sale bien, retorna un req.user al session.router, donde va a desenvolver la peticion
         } catch (error) {
           return done(`Error al obtener el usuario: ${error}`);
@@ -83,6 +97,7 @@ const initializePassport = () => {
               age: 18,
               email,
               password: "",
+              role: "user",
             };
 
             const result = await userModel.create(newUser);
@@ -102,8 +117,19 @@ const initializePassport = () => {
   });
 
   passport.deserializeUser(async (id, done) => {
-    const user = await userModel.findById(id);
-    done(null, user);
+    if (id === "CoderAdmin") {
+      const user = {
+        _id: "CoderAdmin",
+        first_name: "CoderHouse",
+        age: 18,
+        email: "adminCoder@coder.com",
+        role: "admin",
+      };
+      done(null, user);
+    } else {
+      const user = await userModel.findById(id);
+      done(null, user);
+    }
   });
 };
 export default initializePassport;
